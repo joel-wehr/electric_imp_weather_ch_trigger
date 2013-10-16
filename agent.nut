@@ -83,23 +83,23 @@ function getConditions() {
         server.log(min_till + " minutes until sunrise.");
         // in case min_till is 0, we add 1. 
         min_till = min_till + 1;
-        sec_till = min_till * 60
+        sec_till = min_till * 60;
         imp.wakeup(sec_till, switchOff); //Turn off switch
     }
     //if the current time is after sunrise and before sunset
     else if (mszh > sunrisemin && mszh <= sunsetmin) { 
         min_till = sunsetmin - mszh;
-        server.log(min_till + " minutes until sunset.")
+        server.log(min_till + " minutes until sunset.");
         min_till = min_till + 1;
-        sec_till = min_till * 60
+        sec_till = min_till * 60;
         imp.wakeup(sec_till, switchOn); //Turn on switch
     }
     //if the current time is after sunset, we set a trigger to update tommorrow
     else {
         min_till = (1440 - mszh);
-        server.log(min_till + " minutes until 2400 hours.")
+        server.log(min_till + " minutes until 2400 hours.");
         min_till = min_till + 1;
-        sec_till = min_till * 60
+        sec_till = min_till * 60;
         imp.wakeup(sec_till, getConditions); 
     }
 }
