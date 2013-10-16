@@ -22,12 +22,12 @@ local reportType = "astronomy";
 // These functions send commands to the device. Modify accordingly
 function switchOff() {
     server.log("Sunrise. Switch off")
-    device.send("two", "");
+    device.send("off", "");
     getConditions();
 }
 function switchOn() {
     server.log("Sunset. Switch on.")
-    device.send("one", "");
+    device.send("on", "");
     getConditions();
 }
 
