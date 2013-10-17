@@ -23,12 +23,12 @@ local reportType = "astronomy";
 function switchOff() {
     server.log("Sunrise. Switch off");
     device.send("off", "");
-    getConditions();
+    imp.wakeup(60, getConditions);
 }
 function switchOn() {
     server.log("Sunset. Switch on.");
     device.send("on", "");
-    getConditions();
+    imp.wakeup(60, getConditions);
 }
 
 function getConditions() {
@@ -81,8 +81,6 @@ function getConditions() {
     if (mszh <= sunrisemin && mszh < sunsetmin) { 
         min_till = sunrisemin - mszh;
         server.log(min_till + " minutes until sunrise.");
-        // in case min_till is 0, we add 1. 
-        min_till = min_till + 1;
         sec_till = min_till * 60;
         imp.wakeup(sec_till, switchOff); //Turn off switch
     }
@@ -90,7 +88,6 @@ function getConditions() {
     else if (mszh > sunrisemin && mszh <= sunsetmin) { 
         min_till = sunsetmin - mszh;
         server.log(min_till + " minutes until sunset.");
-        min_till = min_till + 1;
         sec_till = min_till * 60;
         imp.wakeup(sec_till, switchOn); //Turn on switch
     }
@@ -98,7 +95,6 @@ function getConditions() {
     else {
         min_till = (1440 - mszh);
         server.log(min_till + " minutes until 2400 hours.");
-        min_till = min_till + 1;
         sec_till = min_till * 60;
         imp.wakeup(sec_till, getConditions); 
     }
