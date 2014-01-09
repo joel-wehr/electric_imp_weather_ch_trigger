@@ -19,6 +19,13 @@ local zip = "YOUR ZIP CODE GOES HERE";
 // and lunar events.
 local reportType = "astronomy";
 
+// The wunderground API supports a lot of Languages. If you use another report Type
+// than "astronomy" you can select the Language with lang:"YOUR LANGUAGE CODE GOES HERE"
+// see http://www.wunderground.com/weather/api/d/docs?d=language-support for 
+// Language Code
+
+local languageCode = "EN";
+
 // These functions send commands to the device. Modify accordingly
 function switchOff() {
     server.log("Sunrise. Switch off");
@@ -35,7 +42,7 @@ function getConditions() {
     server.log(format("Agent getting current conditions for %s", zip));
     
     // cat some strings together to build our request URL
-    local reqURL = wunderBaseURL+reportType+"/q/"+zip+".json";
+    local reqURL = wunderBaseURL+reportType+"/"+languageCode+"/q/"+zip+".json";
 
     // call http.get on our new URL to get an HttpRequest object. Note: we're not using any headers
     server.log(format("Sending request to %s", reqURL));
